@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
-from t2f.extraction.extractor import feature_extraction
-from t2f.utils.importance_old import feature_selection
-from t2f.model.clustering import ClusterWrapper
-from t2f.Time2Feat import Time2Feat
+from Time2Feat.extraction.extractor import feature_extraction
+from Time2Feat.utils.importance_old import feature_selection
+from Time2Feat.model.clustering import ClusterWrapper
+from Time2Feat.Time2Feat import Time2Feat
 if __name__ == '__main__':
     # 10 multivariate time series with 100 timestamps and 3 signals each
     arr = np.random.randn(10, 100, 3)
