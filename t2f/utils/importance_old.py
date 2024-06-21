@@ -86,7 +86,7 @@ def features_scoring_selection(df: pd.DataFrame, labels: list, mode: str = 'simp
         sk.fit(df, labels)
         df_sk = pd.DataFrame({'score': sk.scores_, 'feature': df.columns})
         df_sk.dropna(inplace=True)
-        if df_sk is not None:
+        if external_feat is not None:
             df_sk = df_sk[~df_sk['feature'].isin(external_feat.columns.tolist())]
         df_sk.sort_values('score', ascending=False, inplace=True)
         ex = pd.Series(df_sk['score'].values[:top_k], index=df_sk['feature'].values[:top_k])
@@ -98,7 +98,7 @@ def features_scoring_selection(df: pd.DataFrame, labels: list, mode: str = 'simp
         sk.fit(df, labels)
         df_sk = pd.DataFrame({'pvalues': sk.pvalues_, 'feature': df.columns})
         df_sk.dropna(inplace=True)
-        if df_sk is not None:
+        if external_feat is not None:
             df_sk = df_sk[~df_sk['feature'].isin(external_feat.columns.tolist())]
         df_sk.sort_values('pvalues', ascending=True, inplace=True)
         ex = pd.Series(df_sk['pvalues'].values[:top_k], index=df_sk['feature'].values[:top_k])
@@ -109,7 +109,7 @@ def features_scoring_selection(df: pd.DataFrame, labels: list, mode: str = 'simp
         selector = VarianceThreshold()
         selector.fit(df)
         features = selector.get_feature_names_out()
-        if features is not None:
+        if external_feat is not None:
             features = features[~np.isin(features, external_feat.columns.tolist())]
         top_k = len(features)
         ex = pd.Series([1] * top_k, index=features)
